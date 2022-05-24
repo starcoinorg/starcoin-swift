@@ -77,6 +77,20 @@ final class starcoinTests: XCTestCase {
             print("error", rs.error, rs.value)
         }
     }
+    func testGetEpochResource ()throws {
+        let service = StarcoinClient(url: "https://main-seed.starcoin.org")
+        // Perform request
+        let rs = try service.getEpochResource(stateroot: "0x7244a297682da309e05bdd30a71876414cab8d499f5a904817bcd823307ad560")
+        do {
+            let nodeInfo = try rs.wait()
+            debugPrint(nodeInfo)
+        } catch {
+            print("error", rs.error, rs.value)
+        }
+    }
+
+
+
 
 }
 

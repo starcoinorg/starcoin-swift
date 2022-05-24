@@ -83,10 +83,10 @@ class StarcoinClient: RPCService {
         invoke("chain.get_block_by_number", params: [number]);
     }
 
-//
-//    func getBlocksFromNumber(number: Int,count:Int) -> Promise<[Block]> {
-//       invoke("chain.get_blocks_by_number",params: [number, count]);
-//    }
+
+    func getBlocksFromNumber(number: Int,count:Int) -> Promise<[Block?]> {
+       invoke("chain.get_blocks_by_number",params: [number, count]);
+    }
 //
 //    func getBalanceOfStc(address: String) -> Promise<Any> {
 //        res = this -> listResource(address);
@@ -107,18 +107,14 @@ class StarcoinClient: RPCService {
 //       this -> getEpochResource(h['state_root']);
 //    }
 //
-//    func getEpochResource(stateroot: String) -> Promise<Any> {
-//        addr = "0x00000000000000000000000000000001";
-//        restype = "0x1::Epoch::Epoch";
-//        opt = [
-//            "decode" => true,
-//            "state_root" => stateroot
-//        ];
-//
-//       this -> getResource(addr, restype, opt);
-//
-//    }
-//
+    func getEpochResource(stateroot: String) throws -> Promise<EpochResource> {
+        var address = "0x00000000000000000000000000000001";
+        var resType = "0x1::Epoch::Epoch";
+        var opt = GetResourceOption(decode: true, state_root: stateroot)
+
+        return invoke("state.get_resource", params: [address, resType, opt]);
+    }
+
     func getResource(address: String, resType: String, opt: GetResourceOption) -> Promise<Resource> {
         invoke("state.get_resource", params: [address, resType, opt]);
     }

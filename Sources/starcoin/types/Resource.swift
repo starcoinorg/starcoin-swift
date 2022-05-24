@@ -10,9 +10,9 @@ struct Resource: HandyJSON {
     var raw: String?
 }
 
-struct GetResourceOption: HandyJSON {
-    var decode: Bool?
-    var state_root: String?
+struct GetResourceOption:Codable {
+    var decode: Bool
+    var state_root: String
 }
 
 struct EpochJson: HandyJSON {
@@ -36,6 +36,7 @@ struct NewEpochEvents: HandyJSON {
 }
 
 
-struct EpochResource: HandyJSON {
+struct EpochResource:HandyJSON {
     var json: EpochJson?
+    var raw:String?
 }
