@@ -2,7 +2,6 @@ import Foundation
 import HandyJSON
 
 struct Block: HandyJSON {
-
     var header: BlockHeader?
     var body: BlockBody?
     var uncles: [BlockHeader]?

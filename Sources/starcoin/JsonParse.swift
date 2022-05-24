@@ -16,6 +16,30 @@ class JsonResultParser<ResultType: HandyJSON>: ResultParser {
 
 extension RPCService {
     func invoke<Result: HandyJSON>(_ method: String, params: Invocation<Result>.Params? = nil) -> Promise<Result> {
-        return invoke(method, params: params, parser: JsonResultParser())
+        invoke(method, params: params, parser: JsonResultParser())
     }
+}
+
+
+class JsonArrayResultParser<Element: HandyJSON>: ResultParser {
+// MARK: Functions
+
+    func parse(_ object: AnyObject) throws -> [Element?] {
+        print(object)
+        guard let value = [Element].deserialize(from: object as! NSArray) else {
+            throw ResultParserError.invalidFormat(object: object)
+        }
+        return value
+    }
+
+}
+
+
+extension RPCService {
+// MARK: Functions
+
+    open func invoke<Element: HandyJSON>(_ method: String, params: Invocation<[Element]>.Params? = nil) -> Promise<[Element?]> {
+        return invoke(method, params: params, parser: JsonArrayResultParser())
+    }
+
 }
