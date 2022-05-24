@@ -1,6 +1,3 @@
-//
-// Created by mac on 2022/5/24.
-//
 
 import Foundation
 import SwiftJSONRPC
