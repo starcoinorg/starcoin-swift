@@ -24,36 +24,38 @@ class StarcoinClient: RPCService {
         invoke("node.info")
     }
 
+
+    func getEvents(eventFilter: EventFilter) -> Promise<[Event?]> {
+        invoke("chain.get_events", params: [eventFilter]);
+    }
+
+    func getTransactionProof(blockHash: String, txGlobalIndex: Int, eventIndex: Int) -> Promise<TransactionProof> {
+        invoke("chain.get_transaction_proof", params: [blockHash, txGlobalIndex, eventIndex]);
+    }
+
 //
-//    func getEvents(eventFilter: EventFilter) -> Promise<Any> {
-//       invoke("chain.get_events",  params: [eventFilter] );
-//    }
-//
-//    func getTransactionProof(blockHash: String, txGlobalIndex: Int, eventIndex: Int) -> Promise<Any> {
-//       invoke("chain.get_transaction_proof",params: [blockHash, txGlobalIndex, eventIndex]);
-//    }
-//
-//    func getTransactionByHash(transactionHash: String) -> Promise<Any> {
-//       invoke("chain.get_transaction",params: [transactionHash]);
-//    }
-//
-//    func getPendingTransactionByHash(transactionHash: String) -> Promise<Any> {
-//       invoke("txpool.pending_txn", [transactionHash]);
-//    }
+    func getTransactionByHash(transactionHash: String) -> Promise<Transaction> {
+        invoke("chain.get_transaction", params: [transactionHash]);
+    }
+
+    func getPendingTransactionByHash(hash: String) -> Promise<PendingTransaction> {
+        invoke("txpool.pending_txn", params: [hash]);
+    }
+
 //
 //
-//    func getTransactionInfoByHash(transactionHash: String) -> Promise<Any> {
-//       invoke("chain.get_transaction_info", [transactionHash]);
-//    }
-//
-//    func getTransactionEventByHash(transactionHash: String) -> Promise<Any> {
-//       invoke("chain.get_events_by_txn_hash", [transactionHash]);
-//
-//    }
-//
-//    func getBlockByHash(blockHash: String) -> Promise<Any> {
-//       invoke("chain.get_block_by_hash", [blockHash]);
-//    }
+    func getTransactionInfoByHash(hash: String) -> Promise<TransactionInfo> {
+        invoke("chain.get_transaction_info", params: [hash]);
+    }
+
+    func getTransactionEventByHash(hash: String) -> Promise<[Event?]> {
+        invoke("chain.get_events_by_txn_hash", params: [hash]);
+    }
+
+    func getBlockByHash(blockHash: String) -> Promise<Block> {
+        invoke("chain.get_block_by_hash", params: [blockHash]);
+    }
+
 //
 //
     func getBlockByNumber(number: Int) -> Promise<Block> {
@@ -62,10 +64,11 @@ class StarcoinClient: RPCService {
 
 //
 //
-//    func getBlockInfoByNumber(number: Int) -> Promise<Any> {
-//       invoke("chain.get_block_info_by_number", [number]);
-//
-//    }
+    func getBlockInfoByNumber(number: Int) -> Promise<BlockInfo> {
+        invoke("chain.get_block_info_by_number", params: [number]);
+
+    }
+
 //
 //    func getBlockHeaderAndBlockInfoByNumber(number: Int) -> Promise<Any> {
 //        // TODO
@@ -76,12 +79,13 @@ class StarcoinClient: RPCService {
 //
 //    }
 //
-//    func headerByNumber(number: Int) -> Promise<Any> {
-//       invoke("chain.get_block_by_number", [number])['header'];
-//    }
+    func headerByNumber(number: Int) -> Promise<Block> {
+        invoke("chain.get_block_by_number", params: [number]);
+    }
+
 //
-//    func getBlocksFromNumber(number: Int, int count = 10) -> Promise<Any> {
-//       invoke("chain.get_blocks_by_number", [number, count]);
+//    func getBlocksFromNumber(number: Int,count:Int) -> Promise<[Block]> {
+//       invoke("chain.get_blocks_by_number",params: [number, count]);
 //    }
 //
 //    func getBalanceOfStc(address: String) -> Promise<Any> {
@@ -93,9 +97,10 @@ class StarcoinClient: RPCService {
 //    }
 //
 //
-//    func listResource(address: String) -> Promise<Any> {
-//       invoke("state.list_resource", [address]);
-//    }
+    func listResource(address: String) -> Promise<ListResource> {
+        invoke("state.list_resource", params: [address]);
+    }
+
 //
 //    func getEpochResourceByHeight(height: Int) -> Promise<Any> {
 //        h = this -> headerByNumber(height);
@@ -114,9 +119,9 @@ class StarcoinClient: RPCService {
 //
 //    }
 //
-//    func getResource(address: String, string resType, opt) -> Promise<Any> {
-//       invoke("state.get_resource", [address, resType, opt]);
-//    }
+    func getResource(address: String, resType: String, opt: GetResourceOption) -> Promise<Resource> {
+        invoke("state.get_resource", params: [address, resType, opt]);
+    }
 
 
 //    func getAccountSequenceNumber(address: String) -> Promise<Any> {

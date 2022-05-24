@@ -26,6 +26,19 @@ final class starcoinTests: XCTestCase {
         }
     }
 
+    func testGetEvents() throws {
+        // TODO ERROR
+        let service = StarcoinClient(url: "https://main-seed.starcoin.org")
+        let  filter = EventFilter(addrs: ["x22a19240709CB17ec9523252AA17B997"],type_tags: [], from_block: 2, to_block: 10,event_keys:[]);
+        let rs = service.getEvents(eventFilter: filter)
+        do {
+            let nodeInfo = try rs.wait()
+            debugPrint(nodeInfo)
+        } catch {
+            print("error", rs.error, rs.value)
+        }
+    }
+
 
     func testGetBlockByNumber() throws {
         let service = StarcoinClient(url: "https://main-seed.starcoin.org")
@@ -38,5 +51,32 @@ final class starcoinTests: XCTestCase {
             print("error", rs.error, rs.value)
         }
     }
+
+
+    func testGetTransactionInfoByHash() throws {
+        let service = StarcoinClient(url: "https://main-seed.starcoin.org")
+        // Perform request
+        let rs = service.getTransactionInfoByHash(hash:"0xd785246040632b9e130cc34887c42df335b61ced4a28a34381e44e56b5d39383")
+        do {
+            let nodeInfo = try rs.wait()
+            debugPrint(nodeInfo.status)
+        } catch {
+            print("error", rs.error, rs.value)
+        }
+    }
+
+
+    func testGetTransactionEventByHash ()throws {
+        let service = StarcoinClient(url: "https://main-seed.starcoin.org")
+        // Perform request
+        let rs = service.getTransactionEventByHash(hash:"0xce694b17cd309852940893e959e61536cd91d94edd79cbed33563b37157a1772")
+        do {
+            let nodeInfo = try rs.wait()
+            debugPrint(nodeInfo)
+        } catch {
+            print("error", rs.error, rs.value)
+        }
+    }
+
 }
 
