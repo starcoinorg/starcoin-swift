@@ -17,10 +17,7 @@ let package = Package(
 
         ],
         dependencies: [
-            .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("master")),
             .package(url: "https://github.com/starcoin-sdk/SwiftJSONRPC.git", .branch("master")),
-            .package(url: "git@github.com:alibaba/HandyJSON.git", .branch("master"))
-
             // Dependencies declare other packages that this package depends on.
             // .package(url: /* package url */, from: "1.0.0"),
         ],
@@ -29,9 +26,9 @@ let package = Package(
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
             .target(
                     name: "starcoin",
-                    dependencies: ["Alamofire", "SwiftJSONRPC", "HandyJSON"]),
+                    dependencies: ["SwiftJSONRPC"]),
             .testTarget(
                     name: "starcoinTests",
-                    dependencies: ["starcoin", "SwiftJSONRPC", "HandyJSON"]),
+                    dependencies: ["starcoin", "SwiftJSONRPC"]),
         ]
 )

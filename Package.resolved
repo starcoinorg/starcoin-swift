@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "HandyJSON",
-        "repositoryURL": "git@github.com:alibaba/HandyJSON.git",
-        "state": {
-          "branch": "master",
-          "revision": "f0b15db3bc0c51e935ea2385d6e33d412f04fffe",
-          "version": null
-        }
-      },
-      {
         "package": "PromiseKit",
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {

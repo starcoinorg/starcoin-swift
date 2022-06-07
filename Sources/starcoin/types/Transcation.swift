@@ -1,9 +1,8 @@
 
 import Foundation
 import SwiftJSONRPC
-import HandyJSON
 
-struct Transaction: HandyJSON {
+struct Transaction: Codable {
     var block_hash: String?
     var block_number: String?
     var transaction_hash: String?
@@ -13,7 +12,7 @@ struct Transaction: HandyJSON {
 }
 
 
-struct BlockMetadata: HandyJSON {
+struct BlockMetadata: Codable {
     var author: String?
     var chain_id: String?
     var number: String?
@@ -23,7 +22,7 @@ struct BlockMetadata: HandyJSON {
     var uncles: String?
 }
 
-struct PendingTransaction: HandyJSON {
+struct PendingTransaction: Codable {
     var authenticator: Authenticator?
     var raw_txn: RawTransaction?
     var timestamp: Int64?
@@ -31,7 +30,7 @@ struct PendingTransaction: HandyJSON {
 }
 
 
-struct TransactionInfo: HandyJSON {
+struct TransactionInfo: Codable {
     var block_hash: String?
     var block_number: String?
     var transaction_hash: String?
@@ -45,7 +44,7 @@ struct TransactionInfo: HandyJSON {
 }
 
 
-struct Event: HandyJSON {
+struct Event: Codable {
     var block_hash: String?
     var block_number: String?
     var transaction_hash: String?
@@ -59,7 +58,7 @@ struct Event: HandyJSON {
 
 }
 
-struct TransactionProof: HandyJSON {
+struct TransactionProof: Codable {
     var transaction_info: TransactionInfo?
     var proof: Proof?
     var event_proof: EventProof?

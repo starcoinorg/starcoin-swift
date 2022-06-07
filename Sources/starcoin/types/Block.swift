@@ -1,25 +1,24 @@
 import Foundation
-import HandyJSON
 
-struct Block: HandyJSON {
+struct Block: Codable {
     var header: BlockHeader?
     var body: BlockBody?
     var uncles: [BlockHeader]?
 }
 
 
-struct BlockBody: HandyJSON {
+struct BlockBody: Codable {
     var full: [UserTransaction]?
 }
 
-struct UserTransaction: HandyJSON {
+struct UserTransaction: Codable {
     var transaction_hash: String?
     var raw_txn: RawTransaction?
     var authenticator: Authenticator?
 }
 
 
-struct RawTransaction: HandyJSON {
+struct RawTransaction: Codable {
     var sender: String?
     var sequence_number: String?
     var payload: String?
@@ -30,12 +29,12 @@ struct RawTransaction: HandyJSON {
     var chain_id: Int?
 }
 
-struct Authenticator: HandyJSON {
+struct Authenticator: Codable {
     var Ed25519: Ed25519?
 }
 
 
-struct Ed25519: HandyJSON {
+struct Ed25519: Codable {
     var public_key: String?
     var signature: String?
 }
