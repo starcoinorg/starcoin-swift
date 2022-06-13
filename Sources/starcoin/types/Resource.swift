@@ -1,16 +1,16 @@
-
 import Foundation
 
 
 struct ListResource: Codable {
-    var resources: String?
+
+    var resources: [String: Resource]
 }
 
 struct Resource: Codable {
     var raw: String?
 }
 
-struct GetResourceOption:Codable {
+struct GetResourceOption: Codable {
     var decode: Bool
     var state_root: String
 }
@@ -36,7 +36,7 @@ struct NewEpochEvents: Codable {
 }
 
 
-struct EpochResource:Codable {
+struct EpochResource: Codable {
     var json: EpochJson?
-    var raw:String?
+    var raw: String?
 }

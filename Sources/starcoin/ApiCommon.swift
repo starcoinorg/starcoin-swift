@@ -1,15 +1,8 @@
-//
-//  ApiCommon.swift
-//  
-//
-//  Created by Daniel Leping on 27/12/2020.
-//
-
 import Foundation
 import Serializable
 import JsonRPC
 
-public enum AvalancheApiError: Error {
+public enum ApiError: Error {
     case networkService(error: ServiceError)
     case networkBodyIsEmpty
     case networkReply(method: String, params: Any,
@@ -23,7 +16,7 @@ public enum AvalancheApiError: Error {
     case nilAddressManager
     case nilSignatureProvider
     case nilAvalancheApi
-    
+
     public init<P: Encodable>(request: RequestError<P, SerializableValue>) {
         switch request {
         case .custom(description: let d, cause: let c):
@@ -38,11 +31,11 @@ public enum AvalancheApiError: Error {
     }
 }
 
-public typealias ApiCallback<R> = (Result<R, AvalancheApiError>) -> Void
+public typealias ApiCallback<R> = (Result<R, ApiError>) -> Void
 
 public enum ApiDataEncoding: String, Encodable, Decodable {
     public typealias RawValue = String
-    
+
     case cb58 = "cb58"
     case hex = "hex"
 }
@@ -58,8 +51,8 @@ extension CodingUserInfoKey {
 
 struct SuccessResponse: Decodable {
     let success: Bool
-    
-    func toResult() -> Result<Void, AvalancheApiError> {
+
+    func toResult() -> Result<Void, ApiError> {
         success ? .success(()) : .failure(.custom(description: "Service returned success = false", cause: nil))
     }
 }

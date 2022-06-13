@@ -1,6 +1,4 @@
 import Foundation
-import SwiftJSONRPC
-
 
 struct AccumulatorInfo: Codable {
     var accumulator_root: String?

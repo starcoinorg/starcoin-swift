@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": "master",
-          "revision": "53a24e871675e389c0d18bdd29e4944ef25f0654",
-          "version": null
-        }
-      },
-      {
         "package": "JsonRPC",
         "repositoryURL": "https://github.com/tesseract-one/JsonRPC.swift.git",
         "state": {
@@ -53,15 +44,6 @@
           "branch": null,
           "revision": "1750873bce84b4129b5303655cce2c3d35b9ed3a",
           "version": "2.19.0"
-        }
-      },
-      {
-        "package": "SwiftJSONRPC",
-        "repositoryURL": "https://github.com/starcoin-sdk/SwiftJSONRPC.git",
-        "state": {
-          "branch": "master",
-          "revision": "e26744b5ac65d1acb6fe2d1b9eeb22025724ca2c",
-          "version": null
         }
       },
       {

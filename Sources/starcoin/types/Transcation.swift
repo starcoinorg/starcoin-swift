@@ -1,12 +1,10 @@
-
 import Foundation
-import SwiftJSONRPC
 
 struct Transaction: Codable {
     var block_hash: String?
     var block_number: String?
     var transaction_hash: String?
-    var transaction_index: String?
+    var transaction_index: Int?
     var block_metadata: BlockMetadata?
     var user_transaction: UserTransaction?
 }
@@ -14,7 +12,7 @@ struct Transaction: Codable {
 
 struct BlockMetadata: Codable {
     var author: String?
-    var chain_id: String?
+    var chain_id: Int?
     var number: String?
     var parent_gas_used: Int?
     var parent_hash: String?
