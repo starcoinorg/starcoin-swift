@@ -11,7 +11,7 @@ import SwiftJSONRPC
 import PromiseKit
 
 
-class StarcoinClient: RPCService {
+class StarcoinClient2: RPCService {
 
     public init(url: String) {
         let url = URL(string: url)!

@@ -13,22 +13,29 @@ let package = Package(
             // Products define the executables and libraries a package produces, and make them visible to other packages.
             .library(
                     name: "starcoin",
-                    targets: ["starcoin"]),
+                    targets: ["starcoin"]
+            ),
 
         ],
         dependencies: [
             .package(url: "https://github.com/starcoin-sdk/SwiftJSONRPC.git", .branch("master")),
+            .package(url: "https://github.com/tesseract-one/JsonRPC.swift.git", from: "0.1.0"),
+            .package(name: "Serializable", url: "https://github.com/tesseract-one/Serializable.swift.git", from: "0.2.3")
+
             // Dependencies declare other packages that this package depends on.
             // .package(url: /* package url */, from: "1.0.0"),
         ],
         targets: [
+
             // Targets are the basic building blocks of a package. A target can define a module or a test suite.
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
             .target(
                     name: "starcoin",
-                    dependencies: ["SwiftJSONRPC"]),
+                    dependencies: ["SwiftJSONRPC",.product(name: "JsonRPC", package: "JsonRPC.swift"),"Serializable" ]
+
+            ),
             .testTarget(
                     name: "starcoinTests",
-                    dependencies: ["starcoin", "SwiftJSONRPC"]),
+                    dependencies: ["starcoin", "SwiftJSONRPC","Serializable",.product(name: "JsonRPC", package: "JsonRPC.swift")]),
         ]
 )

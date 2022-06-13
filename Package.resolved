@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "JsonRPC",
+        "repositoryURL": "https://github.com/tesseract-one/JsonRPC.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "ccfc63f060120b645cd1e92a018aa7a7d07edee1",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "PromiseKit",
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
@@ -20,12 +29,48 @@
         }
       },
       {
+        "package": "Serializable",
+        "repositoryURL": "https://github.com/tesseract-one/Serializable.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "c87eeea3f1c8b2d71b33f6ff83076430c6126e0b",
+          "version": "0.2.3"
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "124119f0bb12384cef35aa041d7c3a686108722d",
+          "version": "2.40.0"
+        }
+      },
+      {
+        "package": "swift-nio-ssl",
+        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
+        "state": {
+          "branch": null,
+          "revision": "1750873bce84b4129b5303655cce2c3d35b9ed3a",
+          "version": "2.19.0"
+        }
+      },
+      {
         "package": "SwiftJSONRPC",
         "repositoryURL": "https://github.com/starcoin-sdk/SwiftJSONRPC.git",
         "state": {
           "branch": "master",
           "revision": "e26744b5ac65d1acb6fe2d1b9eeb22025724ca2c",
           "version": null
+        }
+      },
+      {
+        "package": "WebSocket",
+        "repositoryURL": "https://github.com/tesseract-one/WebSocket.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "9f616c35127c83651d3112f8bdb41284d3c5c213",
+          "version": "0.2.0"
         }
       }
     ]

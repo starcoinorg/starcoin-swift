@@ -7,8 +7,7 @@ class JsonResultParser<ResultType: Codable>: ResultParser {
 
         print(object)
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return try decoder.decode(ResultType.self, from: object as! Data)
+        return try decoder.decode(ResultType.self, from: object as! NSDictionary  as! Data)
     }
 
 }
