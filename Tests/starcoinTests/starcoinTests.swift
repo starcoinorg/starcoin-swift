@@ -7,12 +7,6 @@ import CoreMedia
 final class starcoinTests: XCTestCase {
     var url = "https://main-seed.starcoin.org"
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-    }
-
     func testGetNodeInfo() throws {
         let service = RPC(url: url)
         let success = expectation(description: "success")
@@ -37,25 +31,25 @@ final class starcoinTests: XCTestCase {
     }
 
 
-//    func testGetTransactionProof() throws {
-//        let service = RPC(url: url)
-//        let success = expectation(description: "success")
-//        let blockHash = "0x37e8dd4f432a1c3a7b6dfcaa90ebf2aafa0287678ffe4b8ad2373c5b48ffb20c";
-//        let txGlobalIdx  = 231188;
-//        let eventIndex  = 1;
-//        service.getTransactionProof(blockHash: blockHash, txGlobalIndex: txGlobalIdx, eventIndex: eventIndex) { result in
-//            let info = try! result.get()
-//            print(info)
-//            success.fulfill()
-//        }
-//        waitForExpectations(timeout: 10, handler: nil)
-//    }
+    func testGetTransactionProof() throws {
+        let service = RPC(url: url)
+        let success = expectation(description: "success")
+        let blockHash = "0x37e8dd4f432a1c3a7b6dfcaa90ebf2aafa0287678ffe4b8ad2373c5b48ffb20c";
+        let txGlobalIdx = 231188;
+        let eventIndex = 1;
+        service.getTransactionProof(blockHash: blockHash, txGlobalIndex: txGlobalIdx, eventIndex: eventIndex) { result in
+            let info = try! result.get()
+            print(info)
+            success.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 
     func testGetTransactionByHash() throws {
         let service = RPC(url: url)
         let success = expectation(description: "success")
         let hash = "0xaaed473d705f7e727c8b7db2c331098731e2c3d601fe2296a8aea9b037420e81";
-        service.getTransactionByHash(transactionHash:hash) { result in
+        service.getTransactionByHash(transactionHash: hash) { result in
             let info = try! result.get()
             print(info)
             success.fulfill()
@@ -170,7 +164,7 @@ final class starcoinTests: XCTestCase {
     func testGetBlocksFromNumber() throws {
         let service = RPC(url: url)
         let success = expectation(description: "success")
-        service.getBlocksFromNumber(number: 2,count: 10) { result in
+        service.getBlocksFromNumber(number: 2, count: 10) { result in
             let info = try! result.get()
             print(info)
             success.fulfill()
@@ -191,23 +185,12 @@ final class starcoinTests: XCTestCase {
 //    }
 
 
-//    func testGetEpochResource ()throws {
-//         let service = RPC(url: url)
-//        // Perform request
-//        let rs = try service.getEpochResource(stateroot: "0x7244a297682da309e05bdd30a71876414cab8d499f5a904817bcd823307ad560")
-//        do {
-//            let nodeInfo = try rs.wait()
-//            debugPrint(nodeInfo)
-//        } catch {
-//            print("error", rs.error, rs.value)
-//        }
-//    }
-
-    func testListResource ()throws {
+    func testGetEpochResource ()throws {
          let service = RPC(url: url)
-        // Perform request
         let success = expectation(description: "success")
-        service.listResource(address: "0x22a19240709CB17ec9523252AA17B997"){ result in
+        let stateRoot = "0x7244a297682da309e05bdd30a71876414cab8d499f5a904817bcd823307ad560";
+        let opt = GetResourceOption(decode: true, state_root: stateRoot)
+        service.getEpochResource(stateRoot: stateRoot) { result in
             let info = try! result.get()
             print(info)
             success.fulfill()
@@ -216,5 +199,56 @@ final class starcoinTests: XCTestCase {
     }
 
 
+    func testGetResource() throws {
+        let service = RPC(url: url)
+        let success = expectation(description: "success")
+        let stateRoot = "0x7244a297682da309e05bdd30a71876414cab8d499f5a904817bcd823307ad560";
+        let addr = "0x00000000000000000000000000000001";
+        let resType = "0x1::Epoch::Epoch";
+        let opt = GetResourceOption(decode: true, state_root: stateRoot)
+        service.getResource(address: addr, resType: resType, opt: opt) { result in
+            let info = try! result.get()
+            print(info)
+            success.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+
+    func testGetBalanceOfStc() throws {
+        let service = RPC(url: url)
+        let success = expectation(description: "success")
+        service.getBalanceOfStc(address: "0x22a19240709CB17ec9523252AA17B997") { result in
+            let info = try! result.get()
+            print(info)
+            success.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+
+    func testListResource() throws {
+        let service = RPC(url: url)
+        let success = expectation(description: "success")
+        service.listResource(address: "0x22a19240709CB17ec9523252AA17B997") { result in
+            let info = try! result.get()
+            print(info)
+            success.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+
+
+    func testGetGasUnitPrice() throws {
+        let service = RPC(url: url)
+        let success = expectation(description: "success")
+        service.getGasUnitPrice{ result in
+            let info = try! result.get()
+            print(info)
+            success.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }
 

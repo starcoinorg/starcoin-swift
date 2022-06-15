@@ -5,9 +5,9 @@
         "package": "JsonRPC",
         "repositoryURL": "https://github.com/tesseract-one/JsonRPC.swift.git",
         "state": {
-          "branch": null,
-          "revision": "ccfc63f060120b645cd1e92a018aa7a7d07edee1",
-          "version": "0.1.0"
+          "branch": "main",
+          "revision": "c052422edeec7767ad41a7c8b154f60f05de75b3",
+          "version": null
         }
       },
       {

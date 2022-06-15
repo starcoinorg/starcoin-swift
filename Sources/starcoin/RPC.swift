@@ -1,4 +1,3 @@
-
 import Foundation
 import JsonRPC
 import Serializable
@@ -49,19 +48,19 @@ class RPC {
     }
 
 
-//  public  func getTransactionProof(blockHash: String, txGlobalIndex: Int, eventIndex: Int,
-//                             cb: @escaping ApiCallback<TransactionProof>) {
-//        client.call(
-//                method: "chain.get_transaction_proof",
-//                params: [blockHash, txGlobalIndex, eventIndex],
-//                TransactionProof.self,
-//                SerializableValue.self
-//        ) { response in
-//            cb(response.mapError(AvalancheApiError.init).map {
-//                $0
-//            })
-//        }
-//    }
+    public func getTransactionProof(blockHash: String, txGlobalIndex: Int, eventIndex: Int,
+                                    cb: @escaping ApiCallback<TransactionProof>) {
+        client.call(
+                method: "chain.get_transaction_proof",
+                params: Params(blockHash, txGlobalIndex, eventIndex),
+                TransactionProof.self,
+                SerializableValue.self
+        ) { response in
+            cb(response.mapError(ApiError.init).map {
+                $0
+            })
+        }
+    }
 
 //
     public func getTransactionByHash(transactionHash: String,
@@ -202,13 +201,18 @@ class RPC {
     }
 
 //
-//    func getBalanceOfStc(address: String) -> Promise<Any> {
-//        res = this -> listResource(address);
-//
-//        stcRaw = res['resources']["0x00000000000000000000000000000001::Account::Balance<0x00000000000000000000000000000001::STC::STC>"];
-//
-//
-//    }
+    func getBalanceOfStc(address: String, cb: @escaping ApiCallback<Int64>) {
+        let resType = "0x00000000000000000000000000000001::Account::Balance<0x00000000000000000000000000000001::STC::STC>"
+        let opt = GetResourceOption(decode: false)
+        getResource(address: address, resType: resType, opt: opt) { result in
+            let info = try! result.get()
+            // TODO
+            print(info)
+            cb(Result.success(11))
+        }
+
+    }
+
 //
 //
     public func listResource(address: String, cb: @escaping ApiCallback<ListResource>) {
@@ -230,38 +234,34 @@ class RPC {
 //       this -> getEpochResource(h['state_root']);
 //    }
 //
-//    func getEpochResource(stateroot: String,cb: @escaping ApiCallback<EpochResource>) throws{
-//        var address = "0x00000000000000000000000000000001";
-//        var resType = "0x1::Epoch::Epoch";
-//        var opt = GetResourceOption(decode: true, state_root: stateroot)
-//        let params:[Codable]
-//        params = [address, resType, opt]
-//        client.call(
-//                method: "state.get_resource",
-//                params:params,
-//                EpochResource.self,
-//                SerializableValue.self
-//        ) { response in
-//            cb(response.mapError(AvalancheApiError.init).map {
-//                $0
-//            })
-//        }
-//    }
+    public func getEpochResource(stateRoot: String, cb: @escaping ApiCallback<EpochResource>) {
+        let address = "0x00000000000000000000000000000001";
+        let resType = "0x1::Epoch::Epoch";
+        let opt = GetResourceOption(decode: true, state_root: stateRoot)
+        client.call(
+                method: "state.get_resource",
+                params: Params(address, resType, opt),
+                EpochResource.self,
+                SerializableValue.self
+        ) { response in
+            cb(response.mapError(ApiError.init).map {
+                $0
+            })
+        }
+    }
 
-//    func getResource(address: String, resType: String, opt: GetResourceOption,cb: @escaping ApiCallback<Resource>) {
-//        let params:[Codable]
-//        params = [address, resType, opt]
-//        client.call(
-//                method: "state.get_resource",
-//                params:params,
-//                Resource.self,
-//                SerializableValue.self
-//        ) { response in
-//            cb(response.mapError(AvalancheApiError.init).map {
-//                $0
-//            })
-//        }
-//    }
+    public func getResource(address: String, resType: String, opt: GetResourceOption, cb: @escaping ApiCallback<Resource>) {
+        client.call(
+                method: "state.get_resource",
+                params: Params(address, resType, opt),
+                Resource.self,
+                SerializableValue.self
+        ) { response in
+            cb(response.mapError(ApiError.init).map {
+                $0
+            })
+        }
+    }
 
 
 //    func getAccountSequenceNumber(address: String) -> Promise<Any> {
@@ -269,9 +269,21 @@ class RPC {
 //
 //    }
 //
-//    func getState(address: String) -> Promise<Any> {
-//
-//    }
+
+    func getState(address: String, cb: @escaping ApiCallback<AccountResource>) {
+        client.call(
+                method: "state.get",
+                params: [address + "/1/0x00000000000000000000000000000001::Account::Account"],
+                AccountResource.self,
+                SerializableValue.self
+        ) { response in
+            // TODO BcsDeserializeAccountResource
+            cb(response.mapError(ApiError.init).map {
+                $0
+            })
+        }
+    }
+
 //
 //    func Subscribe() -> Promise<Any> {
 //
@@ -285,9 +297,18 @@ class RPC {
 //
 //    }
 //
-//    func SubmitTransaction() -> Promise<Any> {
-//
-//    }
+    func SubmitTransaction(privateKey:Ed25519PrivateKey,rawUserTransaction:RawUserTransaction) {
+        client.call(
+                method: "txpool.submit_hex_transaction",
+                params: ["xxx"],
+                Resource.self,
+                SerializableValue.self
+        ) { response in
+//            cb(response.mapError(ApiError.init).map {
+//                $0
+//            })
+        }
+    }
 //
 //
 //    func SubmitSignedTransaction() -> Promise<Any> {
@@ -311,9 +332,18 @@ class RPC {
 //
 //    }
 //
-////    func getGasUnitPrice() -> Int {
-////       invoke("txpool.gas_price");
-////    }
+  public  func getGasUnitPrice(cb: @escaping ApiCallback<Int>) {
+        client.call(
+                method: "txpool.gas_price",
+                params: Nil.nil,
+                String.self,
+                SerializableValue.self
+        ) { response in
+            cb(response.mapError(ApiError.init).map {
+                Int($0) ?? 1
+            })
+        }
+    }
 ////
 ////    func callContract() -> Promise<Any> {
 ////       invoke("contract.call_v2");

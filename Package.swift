@@ -18,7 +18,7 @@ let package = Package(
 
         ],
         dependencies: [
-            .package(url: "https://github.com/tesseract-one/JsonRPC.swift.git", from: "0.1.0"),
+            .package(url: "https://github.com/tesseract-one/JsonRPC.swift.git",.branch("main")),
             .package(name: "Serializable", url: "https://github.com/tesseract-one/Serializable.swift.git", from: "0.2.3"),
             .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.17.1")
             // Dependencies declare other packages that this package depends on.

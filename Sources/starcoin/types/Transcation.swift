@@ -62,3 +62,8 @@ struct TransactionProof: Codable {
     var event_proof: EventProof?
     var state_proof: String?
 }
+
+
+typealias Ed25519PrivateKey = [uint8]
+typealias AccountAddress = [uint8]
+
