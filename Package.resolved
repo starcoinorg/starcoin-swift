@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Serde",
+        "repositoryURL": "https://github.com/starcoin-sdk/Serde.swift",
+        "state": {
+          "branch": "main",
+          "revision": "f4fc4a94200dc8e4cecef25587b4090346c67e1f",
+          "version": null
+        }
+      },
+      {
         "package": "Serializable",
         "repositoryURL": "https://github.com/tesseract-one/Serializable.swift.git",
         "state": {

@@ -20,7 +20,8 @@ let package = Package(
         dependencies: [
             .package(url: "https://github.com/tesseract-one/JsonRPC.swift.git",.branch("main")),
             .package(name: "Serializable", url: "https://github.com/tesseract-one/Serializable.swift.git", from: "0.2.3"),
-            .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.17.1")
+            .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.17.1"),
+            .package(url: "https://github.com/starcoin-sdk/Serde.swift",.branch("main")),
             // Dependencies declare other packages that this package depends on.
             // .package(url: /* package url */, from: "1.0.0"),
         ],
@@ -30,11 +31,15 @@ let package = Package(
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
             .target(
                     name: "starcoin",
-                    dependencies: ["PromiseKit",.product(name: "JsonRPC", package: "JsonRPC.swift"), "Serializable"]
+                    dependencies: ["PromiseKit",.product(name: "JsonRPC", package: "JsonRPC.swift"), "Serializable",
+                                   .product(name: "Serde", package: "Serde.swift")
+                    ]
 
             ),
             .testTarget(
                     name: "starcoinTests",
-                    dependencies: ["starcoin","PromiseKit", "Serializable", .product(name: "JsonRPC", package: "JsonRPC.swift")]),
+                    dependencies: ["starcoin","PromiseKit", "Serializable", .product(name: "JsonRPC", package: "JsonRPC.swift"),
+                                   .product(name: "Serde", package: "Serde.swift")
+                    ]),
         ]
 )

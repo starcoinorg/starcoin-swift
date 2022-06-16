@@ -1,9 +1,27 @@
 import Foundation
 import JsonRPC
 import Serializable
+import Serde
 
 // Allow simple string errors
 extension String: Error {
+}
+
+extension String {
+    typealias Byte = UInt8
+    var hexToBytes: [Byte] {
+        var start = startIndex
+        return stride(from: 0, to: count, by: 2).compactMap { _ in   // use flatMap for older Swift versions
+            let end = index(after: start)
+            defer { start = index(after: end) }
+            return Byte(self[start...end], radix: 16)
+        }
+    }
+
+    func base64Decoded() -> String? {
+        guard let data = Data(base64Encoded: self) else { return nil }
+        return String(data: data, encoding: .init(rawValue: 0))
+    }
 }
 
 // Notification body structure
@@ -200,17 +218,22 @@ class RPC {
         }
     }
 
+
+
+
 //
-    func getBalanceOfStc(address: String, cb: @escaping ApiCallback<Int64>) {
+    func getBalanceOfStc(address: String, cb: @escaping ApiCallback<UInt128>) {
         let resType = "0x00000000000000000000000000000001::Account::Balance<0x00000000000000000000000000000001::STC::STC>"
         let opt = GetResourceOption(decode: false)
         getResource(address: address, resType: resType, opt: opt) { result in
-            let info = try! result.get()
-            // TODO
-            print(info)
-            cb(Result.success(11))
+            var info = try! result.get()
+            print(info.raw)
+            let range = info.raw.index(info.raw.startIndex, offsetBy: 0)...info.raw.index(info.raw.startIndex, offsetBy: 1)
+            info.raw.replaceSubrange(range, with: "")
+            let bcs = BcsDeserializer(input: [UInt8](info.raw.hexToBytes))
+            let amount = try! bcs.deserialize_u128()
+            cb(Result.success(amount))
         }
-
     }
 
 //
@@ -297,7 +320,7 @@ class RPC {
 //
 //    }
 //
-    func SubmitTransaction(privateKey:Ed25519PrivateKey,rawUserTransaction:RawUserTransaction) {
+    func SubmitTransaction(privateKey: Ed25519PrivateKey, rawUserTransaction: RawUserTransaction) {
         client.call(
                 method: "txpool.submit_hex_transaction",
                 params: ["xxx"],
@@ -309,6 +332,7 @@ class RPC {
 //            })
         }
     }
+
 //
 //
 //    func SubmitSignedTransaction() -> Promise<Any> {
@@ -332,7 +356,7 @@ class RPC {
 //
 //    }
 //
-  public  func getGasUnitPrice(cb: @escaping ApiCallback<Int>) {
+    public func getGasUnitPrice(cb: @escaping ApiCallback<Int>) {
         client.call(
                 method: "txpool.gas_price",
                 params: Nil.nil,
@@ -344,6 +368,7 @@ class RPC {
             })
         }
     }
+
 ////
 ////    func callContract() -> Promise<Any> {
 ////       invoke("contract.call_v2");
