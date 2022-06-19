@@ -22,6 +22,7 @@ let package = Package(
             .package(name: "Serializable", url: "https://github.com/tesseract-one/Serializable.swift.git", from: "0.2.3"),
             .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.17.1"),
             .package(url: "https://github.com/starcoin-sdk/Serde.swift",.branch("main")),
+            .package(url: "https://github.com/starcoin-sdk/StarcoinTypes.swift.git",.branch("master")),
             // Dependencies declare other packages that this package depends on.
             // .package(url: /* package url */, from: "1.0.0"),
         ],
@@ -31,15 +32,19 @@ let package = Package(
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
             .target(
                     name: "starcoin",
-                    dependencies: ["PromiseKit",.product(name: "JsonRPC", package: "JsonRPC.swift"), "Serializable",
-                                   .product(name: "Serde", package: "Serde.swift")
+                    dependencies: ["PromiseKit",
+                                   .product(name: "JsonRPC", package: "JsonRPC.swift"), "Serializable",
+                                   .product(name: "Serde", package: "Serde.swift"),
+                                   .product(name: "StarcoinTypes", package: "StarcoinTypes.swift"),
                     ]
 
             ),
             .testTarget(
                     name: "starcoinTests",
-                    dependencies: ["starcoin","PromiseKit", "Serializable", .product(name: "JsonRPC", package: "JsonRPC.swift"),
-                                   .product(name: "Serde", package: "Serde.swift")
+                    dependencies: ["starcoin","PromiseKit", "Serializable",
+                                   .product(name: "JsonRPC", package: "JsonRPC.swift"),
+                                   .product(name: "Serde", package: "Serde.swift"),
+                                   .product(name: "StarcoinTypes", package: "StarcoinTypes.swift"),
                     ]),
         ]
 )

@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "StarcoinTypes",
+        "repositoryURL": "https://github.com/starcoin-sdk/StarcoinTypes.swift.git",
+        "state": {
+          "branch": "master",
+          "revision": "779c85966e95ceef2475a6072b5180f64c51c56a",
+          "version": null
+        }
+      },
+      {
         "package": "swift-nio",
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {

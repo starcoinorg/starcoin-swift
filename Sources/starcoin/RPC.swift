@@ -32,7 +32,7 @@ struct NewHeadsNotification: Decodable {
 
 class RPC {
 
-    private let client: Client;
+    public let client: Client;
 
     public init(url: String) {
         client = JsonRpc(.http(url: URL(string: url)!), queue: .main)
@@ -300,6 +300,8 @@ class RPC {
                 AccountResource.self,
                 SerializableValue.self
         ) { response in
+
+
             // TODO BcsDeserializeAccountResource
             cb(response.mapError(ApiError.init).map {
                 $0
