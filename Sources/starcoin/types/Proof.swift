@@ -1,12 +1,11 @@
-
 import Foundation
-import HandyJSON
 
-struct Proof: HandyJSON {
+
+struct Proof: Codable {
     var siblings: [String]?
 }
 
-struct EventProof: HandyJSON {
+struct EventProof: Codable {
     var event: String?
     var proof: Proof?
 }

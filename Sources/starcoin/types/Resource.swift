@@ -1,21 +1,20 @@
-
 import Foundation
-import HandyJSON
 
-struct ListResource: HandyJSON {
-    var resources: String?
+
+struct ListResource: Codable {
+    var resources: [String: Resource]
 }
 
-struct Resource: HandyJSON {
-    var raw: String?
+struct Resource: Codable {
+    var raw: String
 }
 
-struct GetResourceOption:Codable {
+struct GetResourceOption: Codable {
     var decode: Bool
-    var state_root: String
+    var state_root: String?
 }
 
-struct EpochJson: HandyJSON {
+struct EpochJson: Codable {
     var number: UInt64?
     var start_time: UInt64?
     var start_block_number: UInt64?
@@ -30,13 +29,16 @@ struct EpochJson: HandyJSON {
     var new_epoch_events: NewEpochEvents?
 }
 
-struct NewEpochEvents: HandyJSON {
+struct NewEpochEvents: Codable {
     var counter: UInt64?
     var guid: String?
 }
 
 
-struct EpochResource:HandyJSON {
+struct EpochResource: Codable {
     var json: EpochJson?
-    var raw:String?
+    var raw: String?
+}
+
+struct AccountResource :Codable{
 }

@@ -13,25 +13,38 @@ let package = Package(
             // Products define the executables and libraries a package produces, and make them visible to other packages.
             .library(
                     name: "starcoin",
-                    targets: ["starcoin"]),
+                    targets: ["starcoin"]
+            ),
 
         ],
         dependencies: [
-            .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("master")),
-            .package(url: "https://github.com/starcoin-sdk/SwiftJSONRPC.git", .branch("master")),
-            .package(url: "git@github.com:alibaba/HandyJSON.git", .branch("master"))
-
+            .package(url: "https://github.com/tesseract-one/JsonRPC.swift.git",.branch("main")),
+            .package(name: "Serializable", url: "https://github.com/tesseract-one/Serializable.swift.git", from: "0.2.3"),
+            .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.17.1"),
+            .package(url: "https://github.com/starcoin-sdk/Serde.swift",.branch("main")),
+            .package(url: "https://github.com/starcoin-sdk/StarcoinTypes.swift.git",.branch("master")),
             // Dependencies declare other packages that this package depends on.
             // .package(url: /* package url */, from: "1.0.0"),
         ],
         targets: [
+
             // Targets are the basic building blocks of a package. A target can define a module or a test suite.
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
             .target(
                     name: "starcoin",
-                    dependencies: ["Alamofire", "SwiftJSONRPC", "HandyJSON"]),
+                    dependencies: ["PromiseKit",
+                                   .product(name: "JsonRPC", package: "JsonRPC.swift"), "Serializable",
+                                   .product(name: "Serde", package: "Serde.swift"),
+                                   .product(name: "StarcoinTypes", package: "StarcoinTypes.swift"),
+                    ]
+
+            ),
             .testTarget(
                     name: "starcoinTests",
-                    dependencies: ["starcoin", "SwiftJSONRPC", "HandyJSON"]),
+                    dependencies: ["starcoin","PromiseKit", "Serializable",
+                                   .product(name: "JsonRPC", package: "JsonRPC.swift"),
+                                   .product(name: "Serde", package: "Serde.swift"),
+                                   .product(name: "StarcoinTypes", package: "StarcoinTypes.swift"),
+                    ]),
         ]
 )

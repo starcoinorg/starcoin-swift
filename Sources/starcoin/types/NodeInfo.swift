@@ -1,9 +1,6 @@
 import Foundation
-import SwiftJSONRPC
-import HandyJSON
 
-
-struct AccumulatorInfo: HandyJSON {
+struct AccumulatorInfo: Codable {
     var accumulator_root: String?
     var frozen_subtree_roots: [String]?
     var num_leaves: String?
@@ -11,14 +8,14 @@ struct AccumulatorInfo: HandyJSON {
 }
 
 
-struct BlockInfo: HandyJSON {
+struct BlockInfo: Codable {
     var block_hash: String?
     var total_difficulty: String?
     var txn_accumulator_info: AccumulatorInfo?
     var block_accumulator_info: AccumulatorInfo?
 }
 
-struct BlockHeader: HandyJSON {
+struct BlockHeader: Codable {
     var timestamp: String?
     var author: String?
     var author_auth_key: String?
@@ -40,14 +37,14 @@ struct BlockHeader: HandyJSON {
 }
 
 
-struct ChainInfo: HandyJSON {
+struct ChainInfo: Codable {
     var chain_id: Int?
     var genesis_hash: String?
     var head: BlockHeader?
     var block_info: BlockInfo?
 }
 
-struct PeerInfo: HandyJSON {
+struct PeerInfo: Codable {
 
     var peer_id: String?
     var notif_protocols: String?
@@ -56,7 +53,7 @@ struct PeerInfo: HandyJSON {
 }
 
 
-class NodeInfo: HandyJSON {
+class NodeInfo: Codable {
     required init() {
         net = ""
         self_address = ""
